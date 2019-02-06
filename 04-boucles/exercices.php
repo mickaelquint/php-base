@@ -37,6 +37,18 @@ $result=0;
 echo "le pgcd de $clonenumber1 et $clonenumber2 est $result";
 //ou gmp_gcd (200,30);
 
-echo '<h3>exo4</h3>';
+
+echo '<h2>4. Le jeu du FizzBuzz</h2>';
+for ($i = 0; $i <= 100; $i++) {
+	if ($i % 15 == 0) {
+		echo 'FizzBuzz, ';
+	} else if ($i % 3 == 0) {
+		echo 'Fizz, ';
+	} else if ($i % 5 == 0) {
+		echo 'Buzz, ';
+	} else {
+		echo $i . ', ';
+	}
+}
 
 
