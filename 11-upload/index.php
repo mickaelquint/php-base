@@ -35,8 +35,18 @@
                 move_uploaded_file($tmpFile, __DIR__.'/upload/'.$fileName);
             }
 
-             
-        
+             //j'ouvre le dossier "upload"
+             $folder = opendir('./upload');
+             var_dump($folder);
+             //on regarde tous les fichiers  dans le dossier 
+             while (($file= readdir($folder)) !==false ){
+                 // on exclut les dossier '.' et '..'
+                 if($file !== '.' && $file !== '..'){
+                     echo '<img src="upload/'.$file.'">';
+
+                 } 
+             }
+
         ?>
 
 
