@@ -1,5 +1,5 @@
 <?php
-require('partials/header.php');
+require('partials/public/header.php');
 
 ?>
  
@@ -14,5 +14,5 @@ require('partials/header.php');
 
     <?php
 
-require('partials/footer.php');
+require('partials/public/footer.php');
 ?>
