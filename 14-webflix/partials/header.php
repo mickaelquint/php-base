@@ -36,21 +36,21 @@ require_once __DIR__ . '/../config/database.php';
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+     
+      <?php
+      // Gestion du menu dynamique
+      $menuItems = [
+        ['label' => 'Accueil','link' =>'index.php'],
+        ['label' => 'Films','link' =>'movie_list.php']
+      ];
+      ?>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
+        <?php foreach ($menuItems as $item) { ?>
+          <li class="nav-item ">
+            <a class="nav-link" href="<?= echo $item['link']; ?>"> <?= echo $item['label']; ?>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
+         <?php } ?>
         </ul>
       </div>
     </div>
