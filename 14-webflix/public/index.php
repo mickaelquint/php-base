@@ -50,16 +50,23 @@ require_once __DIR__ . '/../partials/header.php'; ?>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
+
+
                 <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+
+                    <?php
+
+                    $query = $db ->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND()LIMIT 3');
+                    $movies=$query->fetchAll();
+                   ?>
+                    <?php foreach ($movies as $key => $movie) { ?>
+                    <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?> ">
+                        <div class="movie-cover" style="background-image: url(assets/img/<?= $movie['cover'];?>">
+                        </div>
+
                     </div>
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-                    </div>
+                    <?php } ?>
+
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -82,38 +89,61 @@ require_once __DIR__ . '/../partials/header.php'; ?>
              * dans la div avec la classe col-lg-4.
              * 4. BONUUUUS : Générer un nombre d'étoiles aléatoire
              */
-          ?>
-                <?php
-          $films = $db->query('SELECT * FROM movie ');
-          $filmlist = $films->fetchAll(); 
-          
-        ?>
 
-                <?php foreach ($filmlist as $movie) { ?>
+            $query = $db->query('SELECT * FROM movie');
+            $movies = $query->fetchAll();
+          ?>
+
+                <?php foreach ($movies as $movie) { ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><img class="card-img-top" src="assets/img/<?= $movie['cover'];?>"
+                                alt="<?$movie['name'];?>">
+                            <div class="movie-cover" style=" background-image: url(assets/img/<?=$movie['cover'];?>">
+                            </div>
+                        </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#"> <?php echo $movie['name'];?> </a>
+                                <a href="#"><?= $movie['name']; ?></a>
                             </h4>
-                            <?php $d = new DateTime($movie['date']); ?>
-                            <h5><?= $d->format('d F Y')?></h5>
-                            <p class="card-text"> <?php echo $movie['description'];?></p>
+                            <h5>
+                                <?php
+                      $date = (new DateTime($movie['date']))->format('d F Y'); // 12 April 2019
+
+                      // On traduit les mois en français
+                      $date = str_replace(
+                        ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+                        $date
+                      );
+
+                      echo $date;
+                     ?>
+                            </h5>
+                            <p class="card-text"><?= $movie['description']; ?></p>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">
-                                &#9733;
-                                &#9733;
-                                &#9733;
-                                &#9734;
-                                &#9734;
+                                <?php
+                      // Je génére un nombre d'étoiles aléatoires
+                      $stars = rand(0, 5);
+                      // J'affiche mes 5 étoiles
+                      for ($i = 1; $i <= 5; $i++) {
+                        // J'affiche les étoiles pleines si l'itération est inférieure
+                        // au nombre aléatoire $stars
+                        if ($i <= $stars) {
+                          echo '★ ';
+                        } else {
+                          echo '☆ ';
+                        }
+                      }
+                    ?>
                             </small>
                         </div>
                     </div>
-
                 </div>
                 <?php } ?>
+
             </div>
             <!-- /.row -->
 
@@ -127,4 +157,3 @@ require_once __DIR__ . '/../partials/header.php'; ?>
 <!-- /.container -->
 
 <?php require_once __DIR__ . '/../partials/footer.php';
-?>

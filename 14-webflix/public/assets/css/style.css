@@ -1,0 +1,24 @@
+.card-img-top{
+    display: none;
+}
+
+.movie-cover{
+    height: 350px;
+    background-position: center;
+    background-size: cover;
+}
+.carousel-item .movie-cover{
+    background-size: contain;
+    background-repeat: no-repeat; 
+
+}
+
+.list-group-item {
+    color: rgb(250, 0, 0) !important;
+    background-color: black;
+    border-top-color:white ;
+    border-bottom-color:white ;
+}
+ :hover .list-group-item{
+    color:white;
+}
