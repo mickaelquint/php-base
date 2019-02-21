@@ -54,18 +54,22 @@ require_once __DIR__ . '/../partials/header.php'; ?>
 
                 <div class="carousel-inner" role="listbox">
 
-                    <?php
+                <?php
+              /**
+               * On veut afficher 3 films aléatoires dans le carousel. (ORDER BY)
+               * Ces films devront être des films avec une jaquette. (WHERE ... NOT NULL)
+               * Si on a moins de 3 films avec jaquette, on affiche ces films.
+               */
+              $query = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND() LIMIT 3');
+              $movies = $query->fetchAll();
+            ?>
 
-                    $query = $db ->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND()LIMIT 3');
-                    $movies=$query->fetchAll();
-                   ?>
-                    <?php foreach ($movies as $key => $movie) { ?>
-                    <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?> ">
-                        <div class="movie-cover" style="background-image: url(assets/img/<?= $movie['cover'];?>">
-                        </div>
+            <?php foreach ($movies as $key => $movie) { ?>
+              <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?>">
+                <div class="movie-cover" style="background-image: url(assets/img/<?php echo $movie['cover']; ?>)"></div>
+              </div>
+            <?php } ?>
 
-                    </div>
-                    <?php } ?>
 
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
