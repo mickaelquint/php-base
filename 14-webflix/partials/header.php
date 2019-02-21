@@ -47,7 +47,8 @@ require_once __DIR__ . '/../config/database.php';
         <ul class="navbar-nav ml-auto">
         <?php foreach ($menuItems as $item) { ?>
           <li class="nav-item ">
-            <a class="nav-link" href="<?= echo $item['link']; ?>"> <?= echo $item['label']; ?>
+            <a class="nav-link" href="<?=// on peut écrire aussi <?php echo 
+            $item['link']; ?>"> <? echo $item['label']; ?>
             </a>
           </li>
          <?php } ?>
