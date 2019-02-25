@@ -35,80 +35,42 @@ require_once __DIR__ . '/../partials/header.php'; ?>
             <h1 class="my-4">Catégories</h1>
             <div class="list-group">
                 <?php foreach ($categories as $category) { ?>
-                <a href="category_single.php?id=<?php echo $category['id']; ?>" class="list-group-item"><?php echo $category['name']; ?></a>
+                <a href="category_single.php?id=<?php echo $category['id']; ?>"
+                    class="list-group-item"><?php echo $category['name']; ?></a>
                 <?php } ?>
             </div>
+           
+                <a href="movie_add.php" class="btn text-left">Ajouter un film</a>
+            
 
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
-            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-
-
-                <div class="carousel-inner" role="listbox">
-
-                <?php
-              /**
-               * On veut afficher 3 films aléatoires dans le carousel. (ORDER BY)
-               * Ces films devront être des films avec une jaquette. (WHERE ... NOT NULL)
-               * Si on a moins de 3 films avec jaquette, on affiche ces films.
-               */
-              $query = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND() LIMIT 3');
-              $movies = $query->fetchAll();
-            ?>
-
-            <?php foreach ($movies as $key => $movie) { ?>
-              <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?>">
-                <div class="movie-cover" style="background-image: url(assets/img/<?php echo $movie['cover']; ?>)"></div>
-              </div>
-            <?php } ?>
-
-
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-
             <div class="row">
 
                 <?php
-            /**
-             * Dynamiser la liste des films
-             * 1. Faire la requête SQL pour récupérer toutes les films.
-             * 2. On récupère un résultat, un tableau de films.
-             * 3. On parcourt ce tableau et on remplace la partie HTML
-             * dans la div avec la classe col-lg-4.
-             * 4. BONUUUUS : Générer un nombre d'étoiles aléatoire
-             */
-
-            $query = $db->query('SELECT * FROM movie');
+            // Récupérer les films d'une catégorie
+            $idCategory = intval($_GET['id']);
+            $query = $db->prepare('SELECT * FROM movie WHERE category_id = :category_id');
+            $query->bindValue(':category_id', $idCategory);
+            $query->execute();
             $movies = $query->fetchAll();
           ?>
 
                 <?php foreach ($movies as $movie) { ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="movie_single.php?id=<?= $movie['id']; ?>"><img class="card-img-top" src="assets/img/<?= $movie['cover'];?>"
-                                alt="<?$movie['name'];?>">
-                            <div class="movie-cover" style=" background-image: url(assets/img/<?=$movie['cover'];?>">
-                            </div>
+                        <a href="movie_single.php?id=<?= $movie['id']; ?>">
+                            <img class="card-img-top" src="assets/img/<?php echo $movie['cover']; ?>"
+                                alt="<?= $movie['name']; ?>">
+                            <div class="movie-cover"
+                                style="background-image: url(assets/img/<?php echo $movie['cover']; ?>)"></div>
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#"><?= $movie['name']; ?></a>
+                                <a href="movie_single.php?id=<?= $movie['id']; ?>"><?= $movie['name']; ?></a>
                             </h4>
                             <h5>
                                 <?php
