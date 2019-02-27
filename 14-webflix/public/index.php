@@ -1,7 +1,9 @@
 <?php
 
 // On inclus le fichier header.php sur la page
-require_once __DIR__ . '/../partials/header.php'; ?>
+require_once __DIR__ . '/../partials/header.php';
+
+?>
 
 <!-- Page Content -->
 <div class="container">
@@ -38,6 +40,7 @@ require_once __DIR__ . '/../partials/header.php'; ?>
                 <a href="category_single.php?id=<?php echo $category['id']; ?>" class="list-group-item"><?php echo $category['name']; ?></a>
                 <?php } ?>
             </div>
+            <a href="movie_add.php" class="btn text-left">Ajouter un film</a>
 
         </div>
         <!-- /.col-lg-3 -->

@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer class="py-2 ">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy;
+      <p class="m-0 text-center text-dark">Copyright &copy;
         <?php echo $siteName .' '. date('Y');?> </p>
         <?php // echo (new DateTime())->format('Y');?>
         
