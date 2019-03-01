@@ -106,7 +106,7 @@ require_once __DIR__ . '/../partials/header.php';
                     <div class="card h-100">
                         <a href="movie_single.php?id=<?= $movie['id']; ?>"><img class="card-img-top" src="assets/img/<?= $movie['cover'];?>"
                                 alt="<?$movie['name'];?>">
-                            <div class="movie-cover" style=" background-image: url(assets/img/<?=$movie['cover'];?>">
+                            <div class="movie-cover" style=" background-image: url(assets/img/<?=$movie['cover'];?>)">
                             </div>
                         </a>
                         <div class="card-body">

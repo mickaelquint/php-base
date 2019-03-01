@@ -36,14 +36,15 @@ require_once __DIR__ . '/../config/database.php';
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="index.php"><?php echo $siteName; ?></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"><?php echo $siteName; ?></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
 
-        <?php
+                <?php
           // Gestion du menu dynamique
           $menuItems = [
             ['label' => 'Films', 'link' => 'index.php'],
@@ -51,38 +52,45 @@ require_once __DIR__ . '/../config/database.php';
           ];
         ?>
 
-        <ul class="navbar-nav mr-auto">
-          <?php foreach ($menuItems as $item) { ?> 
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo $item['link']; ?>">
-                <?php echo $item['label']; ?>
-              </a>
-            </li>
-          <?php } ?>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-        <?php if (isset($_SESSION['user'])) { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <?php
+                <ul class="navbar-nav mr-auto">
+                    <?php foreach ($menuItems as $item) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $item['link']; ?>">
+                            <?php echo $item['label']; ?>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if (isset($_SESSION['user'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <?php
                 /**
                  * On se rend sur https://fr.gravatar.com/site/implement/images/
                  * On peut créer un compte et y associer un avatar (lié à notre email).
                  * On doit générer un hash de notre email avec md5().
                  * On peut ensuite afficher une balise <img> avec un lien vers notre gravatar.
                  */
+                $hash= md5($_SESSION ['user']['email'] );
                 echo $_SESSION['user']['email']; ?>
-              </a>
-            </li>
-          <?php } else { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="sign-up.php">
-                Sign up
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">
-                Login
-              </a>
-            </li>
-          <?php } ?>
+
+                            <img width="40" src="https://www.gravatar.com/avatar/<?= $hash; ?>" />
+                        </a>
+                    </li>
+                    <?php } else { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sign-up.php">
+                            Sign up
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">
+                            Login
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
